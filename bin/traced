@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+define('CWD', exec('pwd') ?: getcwd());
+
+if (is_file($bootstrap = CWD . '/vendor/autoload.php')) {
+    require $bootstrap;
+} else {
+    echo 'Can\'t found bootstrap file (vendor/autoload.php)', PHP_EOL;
+    exit(1);
+}
+
+(new \Carno\Console\Initializer)
+    ->commands(\Carno\Traced\Relays\Commands\ServerStart::class)
+    ->components()
+    ->start()
+;
