@@ -77,7 +77,9 @@ class UDP extends ServerBase implements Adaptor
             $events,
             Server::class,
             ['workers_num' => $this->workers],
-            SWOOLE_SOCK_UDP
+            substr($this->listen->host(), 0, 1) === '/'
+                ? SWOOLE_SOCK_UNIX_DGRAM
+                : SWOOLE_SOCK_UDP
         );
         $this->serve();
     }
@@ -111,11 +113,16 @@ class UDP extends ServerBase implements Adaptor
      */
     public function evPacket(Server $serv, string $data, array $client) : void
     {
-        debug() && logger('traced-relays')->debug(
+        debug() && logger('traced')->debug(
             'Received packet',
             [
-                'from' => sprintf('%s:%d', $client['address'], $client['port']),
+                'from' => sprintf(
+                    '%s:%d',
+                    $client['address'] ?: 'ux-sock',
+                    $client['port'] ?? $client['server_socket']
+                ),
                 'size' => strlen($data),
+                'data' => $data,
             ]
         );
 

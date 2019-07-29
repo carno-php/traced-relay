@@ -11,6 +11,7 @@ if (is_file($bootstrap = CWD . '/vendor/autoload.php')) {
 }
 
 (new \Carno\Console\Initializer)
+    ->bootstrap(...\Carno\Serving\Shared::COMPONENTS)
     ->commands(\Carno\Traced\Relays\Commands\ServerStart::class)
     ->components()
     ->start()

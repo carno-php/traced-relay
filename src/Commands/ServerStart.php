@@ -58,7 +58,7 @@ class ServerStart extends Based
             null,
             InputOption::VALUE_REQUIRED,
             'Tracing Addr',
-            'zipkin://127.0.0.1'
+            'zipkin://127.0.0.1:8080/api/v2/spans'
         );
     }
 

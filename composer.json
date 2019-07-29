@@ -2,18 +2,17 @@
   "name": "carno-php/traced-relay",
   "license": "MIT",
   "require": {
-    "carno-php/console": "^1.0",
-    "carno-php/serving": "^1.0",
-    "carno-php/traced": "^1.0"
+    "carno-php/console": "~2.0",
+    "carno-php/serving": "~2.0",
+    "carno-php/traced": "~2.0",
+    "carno-php/log": "~2.0"
   },
   "autoload": {
     "psr-4": {
       "Carno\\Traced\\Relays\\": "src"
     }
   },
-  "bin": [
-    "bin/traced"
-  ],
+  "bin": ["bin/traced"],
   "minimum-stability": "dev",
   "extra": {
     "branch-alias": {
