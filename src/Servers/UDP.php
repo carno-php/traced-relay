@@ -51,7 +51,7 @@ class UDP extends ServerBase implements Adaptor
      * @param Address $listen
      * @param int $workers
      */
-    public function __construct(Address $listen, int $workers = 2)
+    public function __construct(Address $listen, int $workers = 0)
     {
         $this->listen = $listen;
         $this->workers = $workers;
@@ -76,7 +76,7 @@ class UDP extends ServerBase implements Adaptor
             $this->listen,
             $events,
             Server::class,
-            ['workers_num' => $this->workers],
+            ['worker_num' => $this->workers],
             substr($this->listen->host(), 0, 1) === '/'
                 ? SWOOLE_SOCK_UNIX_DGRAM
                 : SWOOLE_SOCK_UDP

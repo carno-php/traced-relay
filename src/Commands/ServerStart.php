@@ -24,6 +24,7 @@ class ServerStart extends Based
 
     private const OPT_SOCK_BIND = 'socket-bind';
     private const OPT_TRACING_ADDR = 'tracing-addr';
+    private const OPT_WORKERS_NUM = 'workers';
 
     /**
      * @var bool
@@ -60,6 +61,8 @@ class ServerStart extends Based
             'Tracing Addr',
             'zipkin://127.0.0.1:8080/api/v2/spans'
         );
+
+        $conf->addOption(self::OPT_WORKERS_NUM, null, InputOption::VALUE_OPTIONAL, 'Workers num', 1);
     }
 
     /**
@@ -76,7 +79,8 @@ class ServerStart extends Based
                 $server = new UDP(
                     $parsed['host'] === '~'
                         ? new Address($parsed['path'])
-                        : new Address($parsed['host'], $parsed['port'])
+                        : new Address($parsed['host'], $parsed['port']),
+                    $app->input()->getOption(self::OPT_WORKERS_NUM)
                 );
                 goto START;
                 break;
